@@ -45,6 +45,31 @@ describe "tests de rodados" {
     assert.equals(7, deportes.capacidadTotalEnColor("azul"))
   }
 
-  //completar...
+  test "la capacidad total de coches azules en cultura es 10" {
+    assert.equals(3+3+4, cultura.capacidadTotalEnColor("azul"))
+  }
 
+  test "el color del rodado mas rapido en deportes es beige" {
+    assert.equals("beige",deportes.colorDelRodadoMasRapido())
+  }
+
+  test "el color del rodado mas rapido en cultura es azul" {
+    assert.equals("rojo",cultura.colorDelRodadoMasRapido())
+  }
+
+  test "dependencia deportes es grande" {
+    assert.that(deportes.esGrande())
+  }
+  
+  test "dependencia cultura no es grande" {
+    assert.notThat(cultura.esGrande())    
+  }
+
+  test "la capacidad faltante en deportes es 25" {
+    assert.equals(45-(4+4+4+3+5), deportes.capacidadFaltante())
+  }
+
+  test "la capacidad faltante en cultura es 5" {
+    assert.equals(31-(4+3+3+4+12), cultura.capacidadFaltante())    
+  }
 }
