@@ -1,5 +1,6 @@
 import rodados.*
 import dependencias.*
+import pedidos.*
 
 describe "tests de rodados" {
   const deportes = new Dependencia(empleados= 45)
@@ -71,5 +72,34 @@ describe "tests de rodados" {
 
   test "la capacidad faltante en cultura es 5" {
     assert.equals(31-(4+3+3+4+12), cultura.capacidadFaltante())    
+  }
+}
+
+describe "test pedidos - etapa 2" {
+  const cachito = new Corsa(color="rojo")
+  const pedido = new Pedido(distancia=960, tiempoMax=8, cantPasajeros=4, coloresIncomp=#{"azul","negro"})
+
+
+  test "la velocidad requerida del pedido es 120km" {
+    assert.equals(120, pedido.velocidadRequerida())
+  }
+
+  test "cachito puede satisfacer el pedido" {
+    assert.that(pedido.autoSatisfacePedido(cachito))
+  }
+
+  test "agregamos rojo a colores incompatibles del pedido, cachito ya no satisface ped" {
+    pedido.agregarColorImcomp("rojo")
+    assert.notThat(pedido.autoSatisfacePedido(cachito))
+  }
+  test "ahora pedido tiene 6 pasajeros, cachito ya no satisface ped" {
+    pedido.cantPasajeros(6)
+    assert.notThat(pedido.autoSatisfacePedido(cachito))
+  }
+
+  test "ahora pedido tiene tiempoMAx 6hs, velRequer es 160, cachito ya no satisface ped" {
+    pedido.tiempoMax(6)
+    assert.equals(160, pedido.velocidadRequerida())
+    assert.notThat(pedido.autoSatisfacePedido(cachito))
   }
 }
