@@ -29,4 +29,6 @@ class Pedido{
     method acelerar() = (tiempoMax - 1).max(0)
 
     method relajar() = tiempoMax + 1
+
+    method tieneComoColorIncompatible(unColor) = coloresIncomp.contains(unColor)
 }
