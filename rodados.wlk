@@ -1,12 +1,17 @@
+import colores.*
 import wollok.game.*
 
+
 class Corsa {
-  const pasoPor = [position]
+  // const pasoPor = [position]
+  const registroPosiciones = [position] //ej: (3,5), (3.6), (3,7) y (4,7)
 
   var property color
 
   //ubicacion en un mapa de coord
   var position = new Position(x=0,y=0)
+
+  var colorVisualActual = "autitoRojo2.png"
 
   //otra forma de agregar position
   // var position = game.at(0,0)
@@ -17,10 +22,43 @@ class Corsa {
 
   method peso() = 1300
 
-  // method position(nuevaPosicion){
+  method pasoPor(unaPosicion) = registroPosiciones.contains(unaPosicion)
 
-  // }
+  method pasoPorFila(numero) = registroPosiciones.any({pos => pos.x() == numero})
 
+  method recorrioFilas(lista_de_numeros) = lista_de_numeros.all({fila => self.pasoPorFila(fila)})
+
+  method position() = position
+  method position(unaPosicion){
+    position = unaPosicion
+  }
+
+  method image() = colorVisualActual
+
+  method cambiarDeColor(unColor){
+    color = unColor
+    colorVisualActual = unColor.image()
+  }
+
+  method registrarPosicion(nuevaPosicion){
+    // const nuevaPos = position.unaDireccion
+    /*
+      position.right(1)
+      position.left(1)
+      position.down(1)
+      position.up(1)
+
+    */
+
+    registroPosiciones.add(nuevaPosicion)
+  }
+
+  method registroPosiciones() = registroPosiciones
+
+  //para probar por consola
+  method mostrarRegistroEnPantalla(){  
+    game.say(self, console.println(self.registroPosiciones())) 
+  }
 }
 
 class Kwid {
