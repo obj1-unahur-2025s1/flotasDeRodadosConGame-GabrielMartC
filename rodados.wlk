@@ -1,20 +1,17 @@
-import colores.*
+import objetosGame.*
 import wollok.game.*
 
 
 class Corsa {
-  // const pasoPor = [position]
   const registroPosiciones = [position] //ej: (3,5), (3.6), (3,7) y (4,7)
 
   var property color
 
-  //ubicacion en un mapa de coord
   var position = new Position(x=0,y=0)
 
-  var colorVisualActual = "autitoRojo2.png"
+  var ultimaDirecDespl = norte
 
-  //otra forma de agregar position
-  // var position = game.at(0,0)
+  var colorVisualActual = "autitoRojo2.png"
 
   method capacidad() = 4
 
@@ -59,6 +56,30 @@ class Corsa {
   method mostrarRegistroEnPantalla(){  
     game.say(self, console.println(self.registroPosiciones())) 
   }
+
+  method moverse(direccion){
+    ultimaDirecDespl = direccion
+    position = direccion.coordenada(position)
+
+
+    // if(self.validarLugarLibre(direccion)){}
+  }
+
+  method moverUltDirecOpuesto(){
+    self.moverse(ultimaDirecDespl.opuesto())
+  }
+
+  method validarLugarLibre(direccion) {
+		const posAlLado = direccion.siguiente(position)
+		const lugarLibre = game.getObjectsIn(posAlLado).all(
+			{ obj => obj.puedePisarte(self) }
+		)
+		// if (!lugarLibre) {
+		// 	throw new DomainException(message = "Algo traba la caja.", source = sokoban)
+		// }
+	}
+
+
 }
 
 class Kwid {

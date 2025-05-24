@@ -32,8 +32,7 @@ class Dependencia{
 
     method esGrande() = empleados >= 40 && self.tieneAlMenos_Rodados(5)
 
-    
-
+    //etapa3
     method agregarPedido(unPedido) = pedidos.add(unPedido)
 
     method quitarUnPedido(unPedido) = pedidos.remove(unPedido)

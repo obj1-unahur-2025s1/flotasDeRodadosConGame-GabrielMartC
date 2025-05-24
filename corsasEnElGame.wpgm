@@ -2,33 +2,44 @@ import wollok.game.*
 import rodados.*
 import dependencias.*
 import pedidos.*
-import colores.*
+import objetosGame.*
+
 
 program FlotaRodadosGame {
 	const corsa = new Corsa(color="rojo")
+	const obstaculo = new Pared()
 
-	game.title("Pepita")
+	game.title("FlotaRodados")
 	game.height(15)
 	game.width(15)
 
-	// add assets in asset folder, for example, for the background
-  // game.boardGround("fondo2.jpg")
-
-	//
-	game.boardGround("paredLadrillos1.jpg")
-
 	game.addVisualCharacter(corsa)
+	game.addVisual(obstaculo)
+
+	game.onCollideDo(corsa, {obj => obj.reaccionAColisionCon_(corsa)})
+
+	// if(obstaculo.resistencia() > 0){
+	// 	game.addVisual(obstaculo)
+	// }
+	// else{
+	// 	game.removeVisual(obstaculo)
+	// }
 
 	keyboard.r().onPressDo({corsa.cambiarDeColor(rojo)})
 	keyboard.a().onPressDo({corsa.cambiarDeColor(azul)})
 	keyboard.v().onPressDo({corsa.cambiarDeColor(verde)})
 
-	keyboard.right().onPressDo({corsa.registrarPosicion(corsa.position().right(1))})
-	keyboard.left().onPressDo({corsa.registrarPosicion(corsa.position().left(1))})
-	keyboard.up().onPressDo({corsa.registrarPosicion(corsa.position().up(1))})
-	keyboard.down().onPressDo({corsa.registrarPosicion(corsa.position().down(1))})
+	// keyboard.right().onPressDo({corsa.registrarPosicion(corsa.position().right(1))})
+	// keyboard.left().onPressDo({corsa.registrarPosicion(corsa.position().left(1))})
+	// keyboard.up().onPressDo({corsa.registrarPosicion(corsa.position().up(1))})
+	// keyboard.down().onPressDo({corsa.registrarPosicion(corsa.position().down(1))})
 
-	keyboard.o().onPressDo({corsa.mostrarRegistroEnPantalla()})	
+	keyboard.up().onPressDo({corsa.moverse(norte)})
+	keyboard.down().onPressDo({corsa.moverse(sur)})
+	keyboard.left().onPressDo({corsa.moverse(oeste)})
+	keyboard.right().onPressDo({corsa.moverse(este)})
+
+	keyboard.o().onPressDo({obstaculo.mostrarResEnCons()})
 
 	game.start()
 }
